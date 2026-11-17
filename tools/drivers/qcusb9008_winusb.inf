@@ -1,0 +1,50 @@
+; ============================================================================
+; qcusb9008_winusb.inf — 把 Qualcomm EDL (VID_05C6&PID_9008) 绑定到 WinUSB
+;
+; 目的：让 libusb / pyusb 能直接访问 EDL 模式的设备，
+;       从而用纯 Python 实现 Sahara + Firehose 协议读写分区。
+;
+; 安装（需管理员）：
+;   pnputil /add-driver qcusb9008_winusb.inf /install
+;
+; 若设备未自动绑定，用 pnputil /add-driver 后再触发重新枚举：
+;   pnputil /scan-devices
+;
+; 卸载（恢复原驱动）：
+;   设备管理器 → 右键设备 → 卸载设备 → 勾选"删除驱动程序"
+; ============================================================================
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = USBDevice
+ClassGuid   = {88BAE032-5A81-49f0-BC3D-A4FF138216D6}
+Provider    = %ManufacturerName%
+CatalogFile = qcusb9008_winusb.cat
+DriverVer   = 06/01/2024,1.0.0.0
+
+[Manufacturer]
+%ManufacturerName% = Standard, NTamd64
+
+[Standard.NTamd64]
+%DeviceName% = USB_Install, USB\VID_05C6&PID_9008
+%DeviceName% = USB_Install, USB\VID_05C6&PID_9008&REV_0000
+
+; ---------------------------------------------------------------------------
+[USB_Install]
+Include = winusb.inf
+Needs   = WINUSB.NT
+
+[USB_Install.Services]
+Include = winusb.inf
+Needs   = WINUSB.NT.Services
+
+[USB_Install.HW]
+AddReg = Dev_HW_AddReg
+
+[Dev_HW_AddReg]
+HKR,,DeviceInterfaceGUIDs,0x10000,"{a5dcbf10-6530-11d2-901f-00c04fb951ed}"
+
+; ---------------------------------------------------------------------------
+[Strings]
+ManufacturerName = "Qualcomm EDL WinUSB"
+DeviceName       = "Qualcomm HS-USB QDLoader 9008 (WinUSB)"

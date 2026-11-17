@@ -1,0 +1,14 @@
+﻿# 统一换行符，避免 Windows/Linux 混用时踩 CRLF 的坑
+* text=auto eol=lf
+
+# Windows 脚本保留 CRLF（PowerShell 对 LF 兼容，但 CRLF 更符合习惯）
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制
+*.png binary
+*.jpg binary
+*.zip binary
+*.elf binary
+*.bin binary

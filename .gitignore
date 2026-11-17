@@ -1,0 +1,63 @@
+﻿# ---- 固件镜像与转储（体积大、含厂商版权内容，不纳入版本控制）----
+*.img
+*.bin
+*.mbn
+*.elf
+*.fv
+*.iso
+kernel.bin
+super.img
+boot.img
+vendor.img
+system.img
+devinfo_dump.bin
+*.log
+
+# ---- 生成的 ARM64 探针二进制（用 tools/arm64 里的脚本可重新生成）----
+tools/**/probe
+tools/**/kgsl*
+tools/**/bm*
+tools/**/bp_*
+tools/**/bc_*
+tools/**/fh_l*
+tools/**/p_[0-9a-f]*
+tools/**/q5b*
+tools/**/t_anon*
+tools/**/t_obj
+tools/**/t_cmd
+tools/**/t_alloc
+tools/**/n_looper
+tools/**/n_txn
+tools/**/d_looper
+tools/**/e_two
+tools/**/f_w*
+tools/**/h_*
+tools/**/k_*
+tools/**/r_looper
+tools/**/r_txn
+tools/**/s_looper
+tools/**/g_sp
+tools/**/bsize*
+tools/**/btxn
+tools/**/b_empty
+tools/**/b_looper
+tools/**/c_looper_nommap
+tools/**/c_txn_nommap
+
+# ---- 运行时产物 ----
+__pycache__/
+*.pyc
+crashlogs/
+fuzzlogs/
+*.zip
+
+# ---- 绝对不要提交的东西 ----
+# 凭据、密钥、私密配置
+*.pem
+*.key
+*.pfx
+id_rsa*
+pw.txt
+*.secret
+login.json
+.env
